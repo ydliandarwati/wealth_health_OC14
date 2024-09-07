@@ -1,0 +1,115 @@
+.createForm{
+    display: flex;
+	flex-direction: column;
+	align-items: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    /* gap: 0 20px; */
+}
+
+
+
+.informationsContainer, .adressContainer, .departmentContainer{
+    min-width: 270px;
+    width:33%;
+    padding:10px; 
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+	align-items: center;
+}
+.informationsContainer__firstName, .informationsContainer__lastName,
+.informationsContainer__select{
+    margin-bottom: 20px;
+}
+
+.informationsContainer__select .select{
+    background-color: rgb(125, 128, 125);
+    width:100%;
+    
+}
+
+.informationsContainer__select div{
+    border-radius: 0;
+    cursor: pointer;
+}
+
+.adressContainer{
+    border: 3px dashed green;
+    border-radius: 2rem;
+    margin-left: 5px;
+}
+.btnContainer{
+    display: flex;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    margin-top:30px;
+}
+
+.btnContainer button {
+    font-size: 1rem;
+    font-weight: 300;
+    cursor: pointer;
+    color: #fff;
+    border-radius: 1rem;
+    border: none;
+    padding: 1rem 2rem;
+    margin: 2rem 0;
+    background: -o-linear-gradient(100deg, #012611 25%, #6c8312 100%);
+    background: linear-gradient(-10deg, #012611 25%, #6c8312 100%);
+}
+
+button:hover{
+    transform: scale(1.1);
+}
+
+
+
+@media screen and (min-width: 964px) {
+    input{
+        width:300px;
+    }
+
+}
+@media screen and (min-width:465px) and (width < 864px){
+    input{
+        width:240px;
+    }
+
+}
+
+
+@media screen and (max-width: 514px) {
+    .informationsContainer, .adressContainer, .departmentContainer{
+        min-width: 230px;
+    }
+    input{
+        width:100%;
+    }
+}
+
+@media screen and (min-width: 1100px)  {
+    .informationsContainer__select{
+        width:70%;
+    }   
+}
+
+
+@media screen and (min-width: 885px) and (width < 1100px) {
+    .informationsContainer__select{
+        width:90%;
+    }   
+}
+
+@media screen and (min-width: 700px) and (width < 885px) {
+    .informationsContainer__select{
+        width:90%;
+    }   
+}
+
+@media screen and (max-width: 699px) {
+    .informationsContainer__select{
+        width:100%;
+    }   
+}
