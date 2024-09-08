@@ -7,6 +7,7 @@ import { statesArray } from "../../data/states"
 import { departmentArray } from "../../data/department"
 import { useDispatch } from 'react-redux'
 import { addEmployee } from "../../redux/employee"
+import Modal from 'react-modal';
 import './createForm.css';
 
 
@@ -21,10 +22,30 @@ export default function CreateForm() {
     const [selectedState, setSelectedState] = useState(statesArray[0])
     const [zipCode, setZipCode] = useState()
 	const [selectedDepartment, setSelectedDepartment] = useState(departmentArray[0])
-
+	const [modalIsOpen, setIsOpen] = useState(false);
 
     const dispatch = useDispatch()
 
+	const modalStyles = {
+		content: {
+		  top: '50%',
+		  left: '50%',
+		  right: 'auto',
+		  bottom: 'auto',
+		  marginRight: '-50%',
+		  transform: 'translate(-50%, -50%)',
+		  backgroundColor: "rgb(187 245 193)",
+		  borderRadius: 10,
+		  padding: 50,
+		  height: "fit-content",
+		  "width": "fit-content"
+		},
+	  };
+
+
+	const closeModal = () => {
+		setIsOpen(false);
+	}
 
     const selectDateBirthHandler = (event) => {
         setDateOfBirth(event)            
@@ -68,8 +89,8 @@ export default function CreateForm() {
 
 		dispatch(addEmployee(currentEmployee))
 
-		console.log("employee :",currentEmployee)
-		
+		console.log("employee :",currentEmployee);
+		setIsOpen(true);
 		setFirstName("")
 		setStartDate("");
 		setDateOfBirth("")
@@ -221,6 +242,23 @@ export default function CreateForm() {
             <div className='btnContainer'>
                 <button id="submit"  type="submit">Save</button>
             </div>      
+
+
+
+		<Modal
+        isOpen={modalIsOpen}
+        // onAfterOpen={afterOpenModal}
+        // onRequestClose={closeModal}
+        style={modalStyles}
+        contentLabel="Example Modal"
+      >
+        {/* <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Hello</h2> */}
+        {/*  */}
+        <div>New employee added!</div>
+        <button onClick={closeModal}>close</button>
+      </Modal>
+
+
         </form>
     </div>
    )
