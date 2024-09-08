@@ -70,7 +70,7 @@ export default function CreateForm() {
 
 		console.log("employee :",currentEmployee)
 		
-
+		setFirstName("")
 		setStartDate("");
 		setDateOfBirth("")
 		setSelectedDepartment("");
@@ -98,9 +98,9 @@ export default function CreateForm() {
                                 onChange={(e) => setFirstName(e.target.value)}
                                 placeholder="first name" 
                                 type="text" 
-                                // required={true}
-                                // pattern="[A-zÀ-ú-']{2,}"
-                                // title="At least 2 alphabetic characters"
+                                required={true}
+                                pattern="[A-zÀ-ú-']{2,}"
+                                title="At least 2 alphabetic characters"
                             />
                         </p>                    
                     </div>
@@ -113,7 +113,10 @@ export default function CreateForm() {
                                 aria-label="lastName"
                                 onChange={(e) => setLastName(e.target.value)}
                                 placeholder="last name" 
-                                type="text" 
+                                type="text"
+								required={true}
+                                pattern="[A-zÀ-ú-']{2,}"
+                                title="At least 2 alphabetic characters"
                             />
                         </p>                    
                     </div>

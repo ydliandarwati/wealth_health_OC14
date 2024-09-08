@@ -1,0 +1,37 @@
+.btnContainer{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    margin-top:0;
+}
+
+.btnContainer button {
+    font-size: 1rem;
+    font-weight: 300;
+    cursor: pointer;
+    color: #fff;
+    border-radius: 1rem;
+    border: none;
+    padding: 1rem 2rem;
+    margin: 0;
+    -webkit-box-shadow: 0rem 0.2rem 0.5rem 0.1rem #d5d5d5;
+            box-shadow: 0rem 0.2rem 0.5rem 0.1rem #d5d5d5;
+    /* background: #9356dc; */
+    background: -o-linear-gradient(100deg, #012611 25%, #6c8312 100%);
+    background: linear-gradient(-10deg, #012611 25%, #6c8312 100%);
+}
+
+.tableContainer{
+    margin-left:5px;
+    margin-right:5px;
+    overflow: auto hidden;
+ 
+}
+
+@media screen and (max-width: 899px) {
+    .tableContainer{
+        margin:0;
+    }   
+}
