@@ -1,14 +1,8 @@
-/* react  */
 import React from "react"
-/*  react-table  */
+import "regenerator-runtime/runtime"
 import { useAsyncDebounce } from 'react-table' 
 
 
-/**
-  * @function GlobalFilter
-  * @export
-  * @description  Define a default UI for filtering 
-*/
 export default function GlobalFilter({
   preGlobalFilteredRows,
   globalFilter,

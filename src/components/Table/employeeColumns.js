@@ -1,5 +1,3 @@
- /*  Header – the name of the column
-      accessor – key in data  */
 export const employeeColumns = [
           {
             Header: 'First Name',

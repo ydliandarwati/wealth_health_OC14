@@ -1,22 +1,9 @@
 import React from "react"
-// react table
 import { useTable, useGlobalFilter, useSortBy, usePagination   } from 'react-table' 
-// GlobalFilter for table
 import GlobalFilter from "./GlobalFilter"
-// prop types
-import PropTypes from 'prop-types'
-/* css */
 import styles from './table.module.css'
 
 
-/**
-  * @function Table
-  * @export
-  * @description  component : header 
-  * @param {array} columns - columns for table
-  * @param {object} data - data for table
-  * @return {HTMLElement} table component generated HTML
-*/
 export default function Table({ columns, data }) {
   
      // Use the state and functions returned from useTable to build your UI
@@ -172,8 +159,4 @@ export default function Table({ columns, data }) {
       </div>   
     </>  
   )
-}
-Table.prototype = {
-  columns: PropTypes.array.isRequired,
-  data: PropTypes.object.isRequired,
 }

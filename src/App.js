@@ -5,7 +5,7 @@ import { Routes, Route } from "react-router-dom"
 import AddEmployee from "./pages/AddEmployee/AddEmployee"
 import ListEmployee from "./pages/ListEmployee/ListEmployee"
 
-// import Error from "./pages/Error/Error"
+import Error from "./pages/Error/Error"
 
 import './styles/normalize.css'
 import './styles/global.css'
@@ -26,7 +26,7 @@ export default function App() {
           <Route exact path="/" element={<AddEmployee />}/>
 		  <Route exact path="/list" element={<ListEmployee />}/>
 
-          {/* <Route path="*" element={<Error />}/> */}
+          <Route path="*" element={<Error />}/>
         </Routes>
     </>
   )
