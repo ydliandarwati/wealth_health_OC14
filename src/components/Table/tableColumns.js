@@ -1,4 +1,4 @@
-export const employeeColumns = [
+export const tableColumns = [
           {
             Header: 'First Name',
             accessor: 'firstName',

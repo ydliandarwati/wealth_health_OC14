@@ -1,6 +1,4 @@
 import React from "react"
-import "regenerator-runtime/runtime"
-import { useAsyncDebounce } from 'react-table' 
 
 
 export default function GlobalFilter({
@@ -10,12 +8,9 @@ export default function GlobalFilter({
   }) {
   const count = preGlobalFilteredRows.length
   const [value, setValue] = React.useState(globalFilter)
-  /* The useAsyncDebounce is used to add a little delay to avoid
-   too many re-renders while the user is typing  */
-  const onChange = useAsyncDebounce(value => {
-    setGlobalFilter(value || undefined)
-  }, 200)
+  const onChange = (value) => setGlobalFilter(value || undefined)
 
+//  search bar which calls on chagen functino to update 
   return (
     <span>
       Search:{' '}
@@ -25,7 +20,7 @@ export default function GlobalFilter({
           setValue(e.target.value);
           onChange(e.target.value);
         }}
-        placeholder={`${count} entries....`}
+        placeholder={`${count} entries...`}
       />
     </span>
   )

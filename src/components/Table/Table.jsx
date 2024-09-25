@@ -1,7 +1,7 @@
 import React from "react"
 import { useTable, useGlobalFilter, useSortBy, usePagination   } from 'react-table' 
 import GlobalFilter from "./GlobalFilter"
-import styles from './table.module.css'
+import './table.css'
 
 
 export default function Table({ columns, data }) {
@@ -12,12 +12,7 @@ export default function Table({ columns, data }) {
       getTableBodyProps,
       headerGroups,
       prepareRow,
-  
-      //new
-      page, // Instead of using 'rows', we'll use page,
-      // which has only the rows for the active page
-  
-      // The rest of these things are super handy, too ;)
+      page, 
       canPreviousPage,
       canNextPage,
       pageOptions,
@@ -26,7 +21,6 @@ export default function Table({ columns, data }) {
       nextPage,
       previousPage,
       setPageSize,
-  
       state,
       preGlobalFilteredRows,
       setGlobalFilter,
@@ -37,7 +31,7 @@ export default function Table({ columns, data }) {
     },
       useGlobalFilter,
       useSortBy,
-      usePagination,  // new
+      usePagination,  
     )
 
     const { pageIndex } = state
@@ -46,7 +40,8 @@ export default function Table({ columns, data }) {
   return (
   <>
 
-    <div className={styles.containerFilter}>
+	{/* search compoent */}
+    <div className="containerFilter">
 
          {/* input filter */}
     <GlobalFilter
@@ -58,8 +53,8 @@ export default function Table({ columns, data }) {
      
 
       {/* show items   */}
-      <div className={styles.containerShow}>
-        <p className={styles.pShow}>Show </p>
+      <div className="containerShow">
+        <p className="pShow">Show </p>
         <select id="show"
             value={state.pageSize}
             onChange={e => {
@@ -72,24 +67,20 @@ export default function Table({ columns, data }) {
               </option>
             ))}
         </select> 
-        <p className={styles.pShow}>entries </p>     
+        <p className="pShow">entries </p>     
       </div>
-      
-
-
     </div>
 
-   
+   {/* main table */}
     <table {...getTableProps()} border="1">
+	{/* header of table */}
     <thead>
           {headerGroups.map(headerGroup => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map(column => (
-                // Add the sorting props to control sorting. For this example
-                // we can add them into the header props
                 <th {...column.getHeaderProps(column.getSortByToggleProps())}>
                   {column.render('Header')}
-                  {/* Add a sort direction indicator */}
+                  {/* sorting direction indicator */}
                   <span>
                     {column.isSorted
                       ? column.isSortedDesc
@@ -102,9 +93,12 @@ export default function Table({ columns, data }) {
             </tr>
           ))}
         </thead>
+	
+	{/* main contents of table (loop over rows) */}
       <tbody {...getTableBodyProps()}>
-      {page.map((row, i) => {  // replace row with page
+      {page.map((row, i) => {  
           prepareRow(row);
+		  console.log("---------",row.cells.map(cell => cell.render("Cell")))
           return (
             <tr {...row.getRowProps()}>
               {row.cells.map((cell) => {
@@ -115,9 +109,11 @@ export default function Table({ columns, data }) {
         })}
       </tbody>
     </table>
-     {/* pagination */}
-     <div className={styles.containerFilter}>
+
+	{/* Pagination */}
+     <div className="containerFilter">
       <div className="pagination">
+			{/* button to go back and forth */}
           <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
             {'<<'}
           </button>{' '}
@@ -130,7 +126,7 @@ export default function Table({ columns, data }) {
           <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
             {'>>'}
           </button>{' '}
-          <span className={styles.showing}>
+          <span className="showing">
             Showing{' '}
             <strong>
               {state.pageIndex + 1} 
@@ -140,7 +136,8 @@ export default function Table({ columns, data }) {
           </span>
         </div>
 
-        <span className={styles.containerGoTo}>
+		{/* go to page field */}
+        <span className="containerGoTo">
               <label htmlFor="goto">Go to page: </label>
               <input
                 id="goto"

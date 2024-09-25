@@ -1,7 +1,7 @@
 import React from "react"
 import {  NavLink } from "react-router-dom"
 import './header.css'
-import logoHeader from "../../assets/Wealth_Health_logo.webp"
+import logoHeader from "../../assets/logo.png"
 
 const arrayNav = [{ linkNav: "/", titleNav: "Create Employee" },
                   { linkNav: "/list", titleNav: "View Current Employees" }]
@@ -13,9 +13,11 @@ export default function Header() {
   return (
     <header className='container__header'>
       { logoHeader &&
-       <img className='header__logo' src={logoHeader} alt="Logo" />
+       <img preload='yes' className='header__logo' src={logoHeader} alt="Logo" />
        }
-      <p className='title_logo'>WEALT HEALTH</p>
+	   {/* <link rel="preload"  href="../../assets/logo.png"	 /> */}
+
+      {/* <p className='title_logo'>WEALT HEALTH</p> */}
       <p className='title'>HRnet   </p>
       <nav>   
         <ul className='header__nav__ul'>

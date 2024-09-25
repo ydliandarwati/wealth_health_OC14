@@ -1,11 +1,11 @@
 import React from "react"
-import CreateForm from "../../components/Form/CreateForm"
+import Form from "../../components/Form/Form"
 
+// form compoent to add new employees (go to createForm component)
 export default function AddEmployee() { 
-
   return (
     <main>
-        <CreateForm />       
+        <Form />       
     </main>
   )
 }

@@ -3,19 +3,16 @@ import { employeeReducer} from './employee'
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, REGISTER, PERSIST, PURGE } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
-/**
- *  The store is saved in storage variable that represent localStorage
- */
+// to clean local storage
+// localStorage.removeItem('persist:root')
+
+// store is saved in localStorage (storage from redux)
 const persistConfig = {
   key: 'root',
   storage,
 }
-
-/**
- * We make the reducer persistent with the config
- */
+// persist reduxer
 const persistedReducer = persistReducer(persistConfig, employeeReducer)
-
 
 export const store = configureStore({
     reducer: persistedReducer, 
@@ -28,6 +25,7 @@ export const store = configureStore({
 
 })
 
+// create exportable persist store
 export const persistor = persistStore(store)
 
 

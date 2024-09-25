@@ -3,26 +3,28 @@ import { useState } from "react"
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import Select from 'react-select'
-import { statesArray } from "../../data/states"
-import { departmentArray } from "../../data/department"
+import { statesArray } from "../../data/statesList"
+import { departmentArray } from "../../data/departmentsList"
 import { useDispatch } from 'react-redux'
 import { addEmployee } from "../../redux/employee"
 import Modal from 'react-modal';
-import './createForm.css';
+import './Form.css';
 
 
 
 export default function CreateForm() {
+	// useState for each field
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
     const [dateOfBirth, setDateOfBirth] = useState()
     const [startDate, setStartDate] = useState("")
 	const [street, setStreet] = useState("")
     const [city, setCity] = useState("")
-    const [selectedState, setSelectedState] = useState(statesArray[0])
+    const [selectedState, setSelectedState] = useState("")
     const [zipCode, setZipCode] = useState()
-	const [selectedDepartment, setSelectedDepartment] = useState(departmentArray[0])
-	const [modalIsOpen, setIsOpen] = useState(false);
+	const [selectedDepartment, setSelectedDepartment] = useState("")
+	const [modalVisibile, setModalVisibile] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
     const dispatch = useDispatch()
 
@@ -42,20 +44,31 @@ export default function CreateForm() {
 		},
 	  };
 
-
 	const closeModal = () => {
-		setIsOpen(false);
+		setModalVisibile(false);
 	}
 
-    const selectDateBirthHandler = (event) => {
-        setDateOfBirth(event)            
-    }
+
+	// check if date is valid or no, and if it is older than 18
+	// empty is also invalid (because of required?)
+	const checkBirthdate = (date) => {
+		const birthdate = new Date(date);
+	
+		const today = new Date(); // today
+		today.setFullYear(today.getFullYear() - 18); // today but -18 years
+	
+		if (birthdate > today || isNaN(birthdate) || (date.toString().length !== 10))
+			return false;
+			return true;
+	};
+
+	// check if name is valid (at least two characters)
+	const isValidName = (name) => {
+        const regex = /^([a-zA-ZÀ-ÿ-]{2,20})*$/;
+        return regex.test(name);
+    };
 
 
-
-    const selectDateStartHandler = (event) => {
-        setStartDate(event)
-    }
 
 
     const handleSubmit = (event) => {
@@ -64,16 +77,31 @@ export default function CreateForm() {
         let currentDateOfBirth = ""
         let currentStartDate = ""
 
+		// options to convert date to string
         let options = {year: 'numeric', month: '2-digit', day: '2-digit'  }
 
-        if (dateOfBirth) {
-            currentDateOfBirth = dateOfBirth.toLocaleDateString("en-US", options)        
-        }
+        currentDateOfBirth = dateOfBirth.toLocaleDateString("en-US", options)        
 
         if (startDate) {
             currentStartDate = startDate.toLocaleDateString("en-US", options)        
         }
-       
+    
+		
+        if (!checkBirthdate(currentDateOfBirth)) {
+            setErrorMessage("Invalid birthdate (required filed): invalid birthdate");
+            return;
+        } else {
+            setErrorMessage("");
+        }
+
+		if (!isValidName(firstName) || !isValidName(lastName)) {
+            setErrorMessage("Invalid first or last name (required fields): too short");
+            return;
+        } else {
+            setErrorMessage("");
+        }
+
+		// data of employee to be added to the list
         let currentEmployee = {
             firstName: firstName,
             lastName: lastName,
@@ -84,18 +112,16 @@ export default function CreateForm() {
             state: selectedState.name,
             stateAbbrev: selectedState.abbreviation,
             zipCode: zipCode,
-            department: selectedDepartment.value
+            department: selectedDepartment
         }
 
 		dispatch(addEmployee(currentEmployee))
 
-		console.log("employee :",currentEmployee);
-		setIsOpen(true);
-		setFirstName("")
+		setModalVisibile(true);
 		setStartDate("");
 		setDateOfBirth("")
 		setSelectedDepartment("");
-		setSelectedDepartment("")
+		setSelectedState("");
 		event.target.reset();
     }
 
@@ -120,8 +146,6 @@ export default function CreateForm() {
                                 placeholder="first name" 
                                 type="text" 
                                 required={true}
-                                pattern="[A-zÀ-ú-']{2,}"
-                                title="At least 2 alphabetic characters"
                             />
                         </p>                    
                     </div>
@@ -136,8 +160,6 @@ export default function CreateForm() {
                                 placeholder="last name" 
                                 type="text"
 								required={true}
-                                pattern="[A-zÀ-ú-']{2,}"
-                                title="At least 2 alphabetic characters"
                             />
                         </p>                    
                     </div>
@@ -149,7 +171,7 @@ export default function CreateForm() {
 								initial
                                 placeholderText="mm/dd/yyyy"
                                 selected={dateOfBirth} 
-                                onChange={selectDateBirthHandler} 
+                                onChange={(e) => setDateOfBirth(e)} 
                             />
                         </div>                 
                     </div>
@@ -160,7 +182,7 @@ export default function CreateForm() {
                                 dateFormat="MM/dd/yyyy"
                                 placeholderText="mm/dd/yyyy"
                                 selected={startDate} 
-                                onChange={selectDateStartHandler} 
+                                onChange={(e) => setStartDate(e)} 
                             />
                         </div>                                      
                     </div>
@@ -176,6 +198,7 @@ export default function CreateForm() {
                             name="department"
                             aria-label="department"
                             className='select'
+							placeholder='select the department'
                         />                     
                     </div>   	
                 
@@ -196,7 +219,7 @@ export default function CreateForm() {
                                     type="text" 
                                 />
                             </p>                    
-                        </div>
+                    </div>
                         <div className='informationsContainer__lastName'>
                         <label htmlFor="city">City</label>
                             <p>
@@ -221,6 +244,7 @@ export default function CreateForm() {
                                 name="states"
                                 aria-label="state"
                                 className='select'
+								placeholder = 'select the state'
                             />                 
                         </div>
                         <div className='informationsContainer__lastName'>
@@ -237,26 +261,22 @@ export default function CreateForm() {
                         </p>                    
                     </div>
                 </fieldset>       
-            </div> 
+				{errorMessage && <p className="error-message">{errorMessage}</p>}
 
+            </div> 
             <div className='btnContainer'>
                 <button id="submit"  type="submit">Save</button>
             </div>      
 
 
-
 		<Modal
-        isOpen={modalIsOpen}
-        // onAfterOpen={afterOpenModal}
-        // onRequestClose={closeModal}
+        isOpen={modalVisibile}
         style={modalStyles}
-        contentLabel="Example Modal"
-      >
-        {/* <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Hello</h2> */}
-        {/*  */}
-        <div>New employee added!</div>
+		ariaHideApp={false}>
+        <div>New employee added</div>
         <button onClick={closeModal}>close</button>
       </Modal>
+
 
 
         </form>

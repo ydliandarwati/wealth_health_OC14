@@ -1,6 +1,6 @@
 .createForm{
     display: flex;
-	flex-direction: column;
+	flex-direction: row;
 	align-items: center;
     flex-wrap: wrap;
     margin-top: 20px;
@@ -11,7 +11,7 @@
 
 .informationsContainer, .adressContainer, .departmentContainer{
     min-width: 270px;
-    width:33%;
+    width:45%;
     padding:10px; 
     display: flex;
     flex-direction: column;
