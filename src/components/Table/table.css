@@ -1,4 +1,4 @@
-.containerFilter{
+.filterContainer{
     margin-top: 15px;
     margin-left: 5px;
     margin-bottom: 15px;
@@ -50,7 +50,7 @@ table tr:hover {
 }
 
 @media screen and (max-width: 699px) {
-    .containerFilter{
+    .filterContainer{
         display: flex;
         flex-direction: column;
         justify-content: space-around;

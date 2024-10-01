@@ -1,7 +1,7 @@
 import { addEmployee, initialState, employeeReducer } from "../redux/employee"
 
 const employee_test = [{
-    id: 34,
+    id: 1,
     firstName: "Yunita",
     lastName: "Liandarwati",
     dateOfBirth: "04/05/1992",

@@ -36,12 +36,50 @@ export default function Table({ columns, data }) {
 
     const { pageIndex } = state
 
+
+	// header
+	const theadContent = headerGroups.map(headerGroup => (
+		<tr {...headerGroup.getHeaderGroupProps()}>
+		  {headerGroup.headers.map(column => (
+			<th {...column.getHeaderProps(column.getSortByToggleProps())}>
+			  {column.render('Header')}
+			  {/* sorting direction indicator */}
+			  <span>
+				{column.isSorted
+				  ? column.isSortedDesc
+					? ' ▼'
+					: ' ▲'
+				  : ''}
+			  </span>
+			</th>
+		  ))}
+		</tr>
+	  ))
+
+	// main content 
+	const tbodyContent = page.map((row) => {
+		prepareRow(row);
+		return (
+		  <tr {...row.getRowProps()}>
+			{row.cells.map((cell) => {
+			  return (
+				<td tabIndex="0" {...cell.getCellProps()}>
+				  {cell.render("Cell")}
+				</td>
+			  );
+			})}
+		  </tr>
+		);
+	  });
+
+
+
   // Render the UI for your table
   return (
   <>
 
 	{/* search compoent */}
-    <div className="containerFilter">
+    <div className="filterContainer">
 
          {/* input filter */}
     <GlobalFilter
@@ -74,44 +112,14 @@ export default function Table({ columns, data }) {
    {/* main table */}
     <table {...getTableProps()} border="1">
 	{/* header of table */}
-    <thead>
-          {headerGroups.map(headerGroup => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map(column => (
-                <th {...column.getHeaderProps(column.getSortByToggleProps())}>
-                  {column.render('Header')}
-                  {/* sorting direction indicator */}
-                  <span>
-                    {column.isSorted
-                      ? column.isSortedDesc
-                        ? ' ▼'
-                        : ' ▲'
-                      : ''}
-                  </span>
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-	
+	<thead>{theadContent}</thead>
 	{/* main contents of table (loop over rows) */}
-      <tbody {...getTableBodyProps()}>
-      {page.map((row, i) => {  
-          prepareRow(row);
-		  console.log("---------",row.cells.map(cell => cell.render("Cell")))
-          return (
-            <tr {...row.getRowProps()}>
-              {row.cells.map((cell) => {
-                return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>;
-              })}
-            </tr>
-          );
-        })}
-      </tbody>
+	<tbody {...getTableBodyProps()}>{tbodyContent}</tbody>
+
     </table>
 
 	{/* Pagination */}
-     <div className="containerFilter">
+     <div className="filterContainer">
       <div className="pagination">
 			{/* button to go back and forth */}
           <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>

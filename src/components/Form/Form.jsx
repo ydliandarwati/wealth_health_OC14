@@ -16,13 +16,13 @@ export default function CreateForm() {
 	// useState for each field
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
-    const [dateOfBirth, setDateOfBirth] = useState()
+    const [dateOfBirth, setDateOfBirth] = useState("")
     const [startDate, setStartDate] = useState("")
 	const [street, setStreet] = useState("")
     const [city, setCity] = useState("")
-    const [selectedState, setSelectedState] = useState("")
-    const [zipCode, setZipCode] = useState()
-	const [selectedDepartment, setSelectedDepartment] = useState("")
+    const [selectedState, setSelectedState] = useState(statesArray[0])
+    const [zipCode, setZipCode] = useState("")
+	const [selectedDepartment, setSelectedDepartment] = useState(departmentArray[0])
 	const [modalVisibile, setModalVisibile] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
 
@@ -80,8 +80,9 @@ export default function CreateForm() {
 		// options to convert date to string
         let options = {year: 'numeric', month: '2-digit', day: '2-digit'  }
 
-        currentDateOfBirth = dateOfBirth.toLocaleDateString("en-US", options)        
-
+        if (dateOfBirth) {
+            currentDateOfBirth = dateOfBirth.toLocaleDateString("en-US", options)        
+        }
         if (startDate) {
             currentStartDate = startDate.toLocaleDateString("en-US", options)        
         }
@@ -109,12 +110,15 @@ export default function CreateForm() {
             startDate: currentStartDate,
             street: street,
             city: city,
-            state: selectedState.name,
+            state: selectedState.value,
             stateAbbrev: selectedState.abbreviation,
             zipCode: zipCode,
-            department: selectedDepartment
+            department: selectedDepartment.value
         }
 
+
+        console.log(currentEmployee)
+        console.log(departmentArray[0].value)
 		dispatch(addEmployee(currentEmployee))
 
 		setModalVisibile(true);
@@ -159,7 +163,7 @@ export default function CreateForm() {
                                 onChange={(e) => setLastName(e.target.value)}
                                 placeholder="last name" 
                                 type="text"
-								required={true}
+								// required={true}
                             />
                         </p>                    
                     </div>
@@ -198,10 +202,8 @@ export default function CreateForm() {
                             name="department"
                             aria-label="department"
                             className='select'
-							placeholder='select the department'
                         />                     
-                    </div>   	
-                
+                    </div>                   
 				</div>
       
 
@@ -244,7 +246,6 @@ export default function CreateForm() {
                                 name="states"
                                 aria-label="state"
                                 className='select'
-								placeholder = 'select the state'
                             />                 
                         </div>
                         <div className='informationsContainer__lastName'>

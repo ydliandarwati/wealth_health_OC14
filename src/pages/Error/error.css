@@ -1,40 +1,33 @@
 
 .error{
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-	-webkit-box-orient: vertical;
-	-webkit-box-direction: normal;
-	    -ms-flex-direction: column;
-	        flex-direction: column;
-	-webkit-box-pack: center;
-	    -ms-flex-pack: center;
-	        justify-content: center;
+	flex-direction: column;
+	justify-content: center;
 	text-align: center;
 	width: 100%;
     color: red;
 }
-.error__title{
+.error_title{
     font-weight: 700;
 }
-.error__text{
+.error_text{
     font-weight: 500;
 }
-.error__link{
+.error_link{
     text-decoration:underline;
     font-weight: 500;
     color: red;
 }
 
 @media screen and (width > 668px) {
-    .error__title{
+    .error_title{
         font-size: 7rem;
     }
-    .error__text{
+    .error_text{
         font-size: 2.25rem;
         line-height: 51px;
     }
-    .error__link{
+    .error_link{
         margin-top: 40px ;
         margin-bottom: 30px;
         line-height: 25.67px;
@@ -43,26 +36,19 @@
 }
 
 @media screen and (max-width:668px) {
-    .error__title{
+    .error_title{
         margin-top: 80px;
         font-size: 5rem;
         line-height: 136.9px;
     }
-    .error__container__text{
-        display: -webkit-box;
-        display: -ms-flexbox;
+    .errorContainer__text{
         display: flex;
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: normal;
-            -ms-flex-direction: column;
-                flex-direction: column;
-        -webkit-box-pack: center;
-            -ms-flex-pack: center;
-                justify-content: center;
+        flex-direction: column;
+        justify-content: center;
         text-align: center;
         width: 100%;
     }
-    .error__text{
+    .error_text{
         font-size: 1.13rem;
         line-height: 25.67px;   
         width: 262px; 
@@ -71,7 +57,7 @@
         margin-left: auto;
         margin-right: auto; 
     }
-    .error__link{
+    .error_link{
         margin-top: 135px ;
         margin-bottom: 30px;
         font-size: 0.88rem;        

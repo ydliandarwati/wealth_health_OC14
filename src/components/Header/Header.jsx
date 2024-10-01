@@ -11,9 +11,9 @@ const arrayNav = [{ linkNav: "/", titleNav: "Create Employee" },
 export default function Header() {
  
   return (
-    <header className='container__header'>
+    <header className='headerContainer'>
       { logoHeader &&
-       <img preload='yes' className='header__logo' src={logoHeader} alt="Logo" />
+       <img className='header_logo' src={logoHeader} alt="Logo" />
        }
 	   {/* <link rel="preload"  href="../../assets/logo.png"	 /> */}
 
